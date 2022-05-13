@@ -1,0 +1,19 @@
+
+#Importando as bibliotecas e configurando o Python
+
+import pandas as pd
+!pip install simpledbf
+from simpledbf import Dbf5
+from sqlalchemy import create_engine
+
+pd.options.display.max_columns = None
+pd.options.display.max_rows = 500
+
+df = Dbf5('nome_do_arquivo.dbf', codec ='latin')
+DNG = df.to_dataframe()
+DNG
+
+## Criando a tabela no postgres e alimentando ela com os dados do arquivo
+
+engine = create_engine('postgresql://ususario:senha@localhost:5432/Nome_do_banco')
+DNG.to_sql('Nome_da_tabela_que_quer_criar', engine, index=False)
